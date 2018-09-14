@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+	<div class="w-100 p-3" >
+	<h1>Dashboard <small> Welcome {{session.username}}</small></h1>
+	<a class="btn btn-success" href="/add_photo">Add Photo</a>
+	<hr>
+	<table class="table table-striped">
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Photo</th>
+			<th>Date</th>
+			<th></th>
+			<th></th>
+		</tr>
+		{% for g in gallery %}
+		<tr>
+			<td>{{ g.id }}</td>
+			<td>{{ g.title }}</td>
+			<td>{{ g.photo }}</td>
+			<td>{{ g.upload_time }}</td>
+			<td><a href="edit_photo/{{g.id}}" class="btn btn-default pull-right">Edit</a></td>
+			<td>
+				<form action="{{url_for('delete_photo', id=g.id)}}" method="post">
+					<input type="hidden" name="_method" value="DELETE">
+					<input type="submit" value="Delete" class="btn btn-danter">
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	</div>	
+{% endblock %}
